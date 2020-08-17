@@ -1,4 +1,4 @@
-﻿ version: '2.4'
+﻿version: '2.4'
 
  services:
    Nexus:
@@ -6,7 +6,7 @@
      build: ./Nexus
      command: python upstream_listener.py
      volumes:
-     	- "logs:/Nexus/logs"
+     - "logs:/Nexus/logs"
      environment:
        receiver_queue: upstream
        downstream_sender: downstream1
@@ -23,7 +23,7 @@
      build: ./External
      command: python listener.py
      volumes:
-     	- "logs:/External/logs "
+     - "logs:/External/logs "
      environment:
        receiver_queue: downstream1
        sender_queue: downstream2
@@ -38,7 +38,7 @@
      build: ./GCD
      command: python listener.py
      volumes:
-     	- "logs:/GCD/logs"
+     - "logs:/GCD/logs"
      environment:
        receiver_queue: gcd_sender
        sender_queue: gcd_listener
@@ -54,7 +54,7 @@
      ports:
         -"5000":"5000"
      expose:
-     	- "5000"
+     - "5000"
      environment:
        mongo_addr: db
        mq_host : mq
@@ -66,9 +66,9 @@
      build: ./LA
      command: python log_aggregator.py
      volumes:
-     	- "logs:/LA/logs"
+     - "logs:/LA/logs"
      environment:
        mongo_addr: db
    
  volumes:
-   logs:  
+   logs:
