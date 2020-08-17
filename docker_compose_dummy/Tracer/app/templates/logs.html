@@ -1,0 +1,13 @@
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Log</th>
+  </tr>
+
+  {% for i in data %}
+    <tr>
+    <td>{{i.id }}</td>
+    <td>{{i.log}}</td>
+  </tr>
+    {% endfor %}
+</table>

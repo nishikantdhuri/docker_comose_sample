@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>WebSocket Test</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+
+    $('#button').on('click',function(){
+    $.ajax({url:'http://' + document.domain + ':' + location.port+ '/put'})
+    });
+    // Use a "/my_namespace" namespace.
+    namespace = '/my_namespace';
+    debugger
+    // Connect to the Socket.IO server.
+    // The connection URL has the following format,
+	// relative to the current page:
+    // http[s]://<domain>:<port>[/<namespace>]
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+    //var socket = io(namespace);
+
+	// The callback function is invoked when a connection with the
+    // server is established.
+    socket.on('connect', function() {
+    //socket.emit('my_event', {data: 'I\'m connected!'});
+    a=1
+    });
+
+    socket.on('event', function(data) {
+    $('div[class="tracer"]').css('background-color','white')
+    $('#'+data['data']['status']).css('background-color','red')
+    });
+});
+</script>
+<head>
+    <style type="text/css">
+        .container {
+            width:800px;
+            height:190px;
+            background-color:green;
+            padding-top:20px;
+            padding-left:15px;
+            padding-right:15px;
+        }
+        #up {
+            float:left;
+            width:180px;
+            height:160px;
+            background-color:red;
+            border:solid black;
+        }
+        #nexus {
+            float:left;
+            width:180px;
+            height:160px;
+            background-color:white;
+            border:solid black;
+            margin-left:20px;
+        }
+        #down {
+            float:left;
+            width:180px;
+            height:160px;
+            background-color:white;
+            border:solid black;
+            margin-left:20px;
+        }
+        #gcd {
+            float:right;
+            width:180px;
+            height:160px;
+            background-color:white;
+            border:solid black;
+        }
+        h1 {
+            color:Green;
+        }
+        </style>
+</head>
+<body>
+    <div id="output" ></div>
+    <center>
+        <h1>Tracer</h1>
+
+        <div class="container">
+            <div id="up" class="tracer">
+                <form>
+                    <button type="button" id="button">Start</button>
+                </form>
+                <p style="padding-top:37px">UP</p>
+            </div>
+
+
+
+            <div id="nexus" class="tracer">
+                <p style="padding-top:53px">NEXUS</p>
+            </div>
+
+            <div id="down" class="tracer">
+                <p style="padding-top:53px">DOWN</p>
+            </div>
+
+            <div id="gcd" class="tracer">
+                <p style="padding-top:53px">GCD</p>
+            </div>
+
+        </div>
+        </center>
+    </body>
+</html>
+</body>

@@ -1,0 +1,78 @@
+ip Rabbit Mq 10.1.2.1 172.17.0.2
+ip Nexus 10.1.2.2
+ip trace 10.1.2.3
+
+docker run -d --ip 10.1.2.1 -p 15672:15672 -p 5672:5672 --name rabbit-mq rabbitmq:3-management
+
+src:
+UP
+NEXUS
+DOWN
+GCD
+
+FROM python:3.6-alpine
+WORKDIR /Nexus
+COPY requirments.txt requirments.txt
+RUN pip install -r requirments.txt
+COPY upstream_listener.py upstream_listener.py
+ENV receiver_queue upstream
+ENV downstream_sender downstream1
+ENV downstream_listener downstream2
+ENV gcd_sender gcd1
+ENV gcd_listener gcd2
+ENV src_system Nexus
+ENV mq_host 172.17.0.2
+ENV tracer_ip 172.17.0.3 
+CMD ["python","upstream_listener.py"]
+
+FROM python:3.6-alpine
+WORKDIR /External
+COPY requirments.txt requirments.txt
+RUN pip install -r requirments.txt
+COPY listener.py listener.py
+ENV receiver_queue downstream1
+ENV sender_queue downstream2
+ENV src_system DOWN
+ENV mq_host 172.17.0.2
+ENV tracer_ip 172.17.0.3 
+CMD ["python","upstream_listener.py"]
+
+FROM python:3.6-alpine
+WORKDIR /External
+COPY requirments.txt requirments.txt
+RUN pip install -r requirments.txt
+COPY upstream_listener.py upstream_listener.py
+ENV host 172.17.0.1
+ENV sender_queue gcd_listener
+ENV receiver_queue gcd_sender
+ENV src_system GCD
+ENV mq_host 172.17.0.2
+ENV tracer_ip 172.17.0.3 
+CMD ["python","upstream_listener.py"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FROM python:3.6-alpine
+WORKDIR /Gcd
+COPY requirments.txt requirments.txt
+RUN pip install -r requirments.txt
+COPY upstream_listener.py upstream_listener.py
+ENV host 172.17.0.1
+ENV sender_queue gcdupstream
+ENV receiver_queue gcddownstream
+ENV src_system GCD
+ENV mq_host 172.17.0.2
+ENV tracer_ip 172.17.0.3 
+CMD ["python","upstream_listener.py"]
