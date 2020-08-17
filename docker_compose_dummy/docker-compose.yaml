@@ -1,6 +1,6 @@
 ﻿version: '2.4'
 
- services:
+services:
    Nexus:
      image: Nexus
      build: ./Nexus
@@ -70,5 +70,5 @@
      environment:
        mongo_addr: db
    
- volumes:
-   logs:
+volumes:
+ logs:
