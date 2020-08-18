@@ -51,7 +51,7 @@ services:
      build: ./Tracer
      command: python run.py
      ports:
-       -"5000":"5000"
+       - "5000":"5000"
      expose:
         - "5000"
      environment:
@@ -62,7 +62,7 @@ services:
 
   LA:
      image: LA
-     build: ./LA
+     build: ./LogAggregator
      command: python log_aggregator.py
      volumes:
         - "logs:/LA/logs"
