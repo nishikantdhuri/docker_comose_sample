@@ -5,7 +5,7 @@ import os
 con_down=None
 con_gcd=None
 import requests
-folder = os.path.dirname(os.path.abspath(__file__))
+folder = os.path.abspath(__file__)
 folder = folder + '\logs'
 
 def connect_mq(mq):
