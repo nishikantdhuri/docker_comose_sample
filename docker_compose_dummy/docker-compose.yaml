@@ -1,12 +1,12 @@
 ﻿version: '2.4'
 
 services:
-   Nexus:
+  Nexus:
      image: Nexus
      build: ./Nexus
      command: python upstream_listener.py
      volumes:
-     - "logs:/Nexus/logs"
+        - "logs:/Nexus/logs"
      environment:
        receiver_queue: upstream
        downstream_sender: downstream1
@@ -16,14 +16,14 @@ services:
        src_system: Nexus
        mq_host: mq
        tracer_ip: tracer
-       sleep_time: 60      		
-   
-   External:
+       sleep_time: 60
+
+  External:
      image: External
      build: ./External
      command: python listener.py
      volumes:
-     - "logs:/External/logs "
+        - "logs:/External/logs "
      environment:
        receiver_queue: downstream1
        sender_queue: downstream2
@@ -31,14 +31,13 @@ services:
        mq_host: mq
        tracer_ip: tracer
        sleep_time: 60
-    
-    
-   GCD:
+
+  GCD:
      image: GCD
      build: ./GCD
      command: python listener.py
      volumes:
-     - "logs:/GCD/logs"
+        - "logs:/GCD/logs"
      environment:
        receiver_queue: gcd_sender
        sender_queue: gcd_listener
@@ -46,29 +45,29 @@ services:
        mq_host: mq
        tracer_ip: tracer
        sleep_time: 60
-       
-   Tracer:
+
+  Tracer:
      image: Tracer
      build: ./Tracer
      command: python run.py
      ports:
-        -"5000":"5000"
+       -"5000":"5000"
      expose:
-     - "5000"
+        - "5000"
      environment:
        mongo_addr: db
        mq_host : mq
        sender_queue: upstream
-       
-    
-   LA:
+
+
+  LA:
      image: LA
      build: ./LA
      command: python log_aggregator.py
      volumes:
-     - "logs:/LA/logs"
+        - "logs:/LA/logs"
      environment:
        mongo_addr: db
-   
+
 volumes:
- logs:
+  logs:
