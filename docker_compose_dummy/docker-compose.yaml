@@ -63,7 +63,7 @@ services:
         - mq
      command: python run.py
      ports:
-       -"5000":"5000"
+       - "5000:5000"
      expose:
         - "5000"
      environment:
@@ -88,14 +88,17 @@ services:
      name: db
      image: mongo:4.0.4
      ports:
-       - "27017":"27017"
+       - "27017:27017"
   
   RabbitMQ:
      name: mq
-     image: rabbitmq:3-management
+     image: rabbitmq:3.6-management
      ports:
-       - "15672":"15672"
-       - "5672":"5672"
+       - "15672:15672"
+       - "5672:5672"
+     volumes:
+       - /etc/so/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
+       - /etc/so/definitions.json:/etc/rabbitmq/definitions.json:ro
        
 volumes:
   logs:
