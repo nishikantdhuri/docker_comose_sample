@@ -2,8 +2,11 @@
 
 services:
   Nexus:
+     image: Nexus
      build: ./Nexus
-     image: nexus
+     depends_on:
+        - db
+        - mq
      command: python upstream_listener.py
      volumes:
         - "logs:/Nexus/logs"
@@ -19,8 +22,11 @@ services:
        sleep_time: 60
 
   External:
+     image: External
      build: ./External
-     image: external
+     depends_on:
+        - db
+        - mq
      command: python listener.py
      volumes:
         - "logs:/External/logs"
@@ -33,8 +39,11 @@ services:
        sleep_time: 60
 
   GCD:
+     image: GCD
      build: ./GCD
-     image: gcd
+     depends_on:
+        - db
+        - mq
      command: python listener.py
      volumes:
         - "logs:/GCD/logs"
@@ -47,11 +56,14 @@ services:
        sleep_time: 60
 
   Tracer:
+     image: Tracer
      build: ./Tracer
-     image: tracer
+     depends_on:
+        - db
+        - mq
      command: python run.py
      ports:
-       - "5000:5000"
+       -"5000":"5000"
      expose:
         - "5000"
      environment:
@@ -61,13 +73,29 @@ services:
 
 
   LA:
-     build: ./LogAggregator
-     image: la
+     image: LA
+     build: ./LA
+     depends_on:
+        - db
+        - mq
      command: python log_aggregator.py
      volumes:
         - "logs:/LA/logs"
      environment:
        mongo_addr: db
-
+    
+  MongoDB:
+     name: db
+     image: mongo:4.0.4
+     ports:
+       - "27017":"27017"
+  
+  RabbitMQ:
+     name: mq
+     image: rabbitmq:3-management
+     ports:
+       - "15672":"15672"
+       - "5672":"5672"
+       
 volumes:
   logs:
