@@ -85,13 +85,13 @@ services:
        mongo_addr: db
     
   MongoDB:
-     name: db
+     container_: db
      image: mongo:4.0.4
      ports:
        - "27017:27017"
   
   RabbitMQ:
-     name: mq
+     container_name: mq
      image: rabbitmq:3.6-management
      ports:
        - "15672:15672"
