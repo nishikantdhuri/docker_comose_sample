@@ -6,7 +6,8 @@ import requests
 import logging
 
 def connect():
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host')))
+    credentials = pika.PlainCredentials('testuser', 'pass')
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('sender_queue'),durable=True)
     return channel
