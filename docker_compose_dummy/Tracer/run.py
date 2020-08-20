@@ -15,7 +15,7 @@ def healthcheck():
 @application.route('/put',methods=['GET'])
 def put():
     credentials = pika.PlainCredentials('testuser', 'pass')   
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=120))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=600,blocked_connection_timeout=300))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('sender_queue'), durable=True)
     channel.basic_publish(body='up', exchange='',routing_key=os.environ.get('sender_queue'))

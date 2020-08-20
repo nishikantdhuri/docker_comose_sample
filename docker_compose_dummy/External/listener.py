@@ -7,7 +7,7 @@ import logging
 
 def connect():
     credentials = pika.PlainCredentials('testuser', 'pass')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=600,blocked_connection_timeout=300))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('sender_queue'),durable=True)
     return channel
@@ -25,7 +25,7 @@ if __name__=='__main__':
                         format='%(asctime)s - %(message)s', level=logging.INFO)
     logging.info('connecting to mq ' + str(os.environ.get('receiver_queue')))
     credentials = pika.PlainCredentials('testuser', 'pass')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=120))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=600,blocked_connection_timeout=300))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('receiver_queue'),durable=True)
 
