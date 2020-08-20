@@ -3,7 +3,7 @@ import os
 import multiprocessing as mp
 from pymongo import MongoClient
 folder = os.path.dirname(os.path.abspath(__file__))
-folder = folder + '\logs'
+folder = folder + '/logs'
 #folder = os.path.abspath(__file__)
 #folder = folder + '\logs'
 

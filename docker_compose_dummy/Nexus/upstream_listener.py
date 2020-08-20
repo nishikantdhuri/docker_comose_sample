@@ -8,7 +8,7 @@ import requests
 #folder = os.path.abspath(__file__)
 #folder = folder + '\logs'
 folder = os.path.dirname(os.path.abspath(__file__))
-folder = folder + '\logs'
+folder = folder + '/logs'
 
 def connect_mq(mq):
     credentials = pika.PlainCredentials('testuser', 'pass')
