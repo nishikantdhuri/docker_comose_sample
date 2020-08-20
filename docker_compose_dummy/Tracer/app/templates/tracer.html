@@ -27,11 +27,11 @@ $(document).ready(function() {
     //socket.emit('my_event', {data: 'I\'m connected!'});
     a=1
     });
-
+(data['data']['status']).toLowerCase()
     socket.on('event', function(data) {
 	debugger
     $('div[class="tracer"]').css('background-color','white')
-    $('#'+data['data']['status']).css('background-color','red')
+    $('#'+(data['data']['status']).toLowerCase()).css('background-color','red')
     });
 });
 </script>
