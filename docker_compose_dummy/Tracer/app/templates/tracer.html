@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     $('#button').on('click',function(){
 	debugger
-    $.ajax({url:'https://'+document.domain+'/put'})
+    $.ajax({url:'http://'+document.domain+'/put'})
     });
     // Use a "/my_namespace" namespace.
     namespace = '/my_namespace';
@@ -17,17 +17,19 @@ $(document).ready(function() {
     // The connection URL has the following format,
 	// relative to the current page:
     // http[s]://<domain>:<port>[/<namespace>]
-    var socket = io.connect('https://'+document.domain+'/test');
+    var socket = io.connect('http://'+document.domain);
     //var socket = io(namespace);
 
 	// The callback function is invoked when a connection with the
     // server is established.
     socket.on('connect', function() {
+	debugger
     //socket.emit('my_event', {data: 'I\'m connected!'});
     a=1
     });
 
     socket.on('event', function(data) {
+	debugger
     $('div[class="tracer"]').css('background-color','white')
     $('#'+data['data']['status']).css('background-color','red')
     });
