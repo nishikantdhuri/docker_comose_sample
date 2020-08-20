@@ -62,6 +62,8 @@ services:
         - MongoDB
         - RabbitMQ
      command: python run.py
+     volumes:
+       - "logs:/GCD/logs"
      ports:
        - "5000:5000"
      expose:
