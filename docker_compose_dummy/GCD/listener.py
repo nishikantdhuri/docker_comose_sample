@@ -20,11 +20,12 @@ if __name__=='__main__':
     # os.environ['receiver_queue'] = 'gcd1'
     # os.environ['sender_queue'] = 'gcd2'
     # os.environ['src_system'] = 'gcd'
-
+    time.sleep(20)
     logging.basicConfig(filename=str(os.environ.get('src_system')) + '.log', filemode='w',
                         format='%(asctime)s - %(message)s', level=logging.INFO)
     logging.info('connecting to mq ' + str(os.environ.get('receiver_queue')))
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),heartbeat=120))
+    credentials = pika.PlainCredentials('testuser', 'pass')
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=120))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('receiver_queue'),durable=True)
 

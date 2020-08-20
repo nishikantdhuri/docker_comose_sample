@@ -2,8 +2,10 @@ import time
 import os
 import multiprocessing as mp
 from pymongo import MongoClient
-folder = os.path.abspath(__file__)
+folder = os.path.dirname(os.path.abspath(__file__))
 folder = folder + '\logs'
+#folder = os.path.abspath(__file__)
+#folder = folder + '\logs'
 
 
 
@@ -123,6 +125,7 @@ def log_gdc():
 
 if __name__ == '__main__':
     #os.environ['mongo_addr'] = '192.168.99.100'
+    time.sleep(20)
     p1=mp.Process(target=log_up)
     p2 = mp.Process(target=log_down)
     p3 = mp.Process(target=log_gdc)

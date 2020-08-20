@@ -5,7 +5,9 @@ import os
 con_down=None
 con_gcd=None
 import requests
-folder = os.path.abspath(__file__)
+#folder = os.path.abspath(__file__)
+#folder = folder + '\logs'
+folder = os.path.dirname(os.path.abspath(__file__))
 folder = folder + '\logs'
 
 def connect_mq(mq):
@@ -99,6 +101,7 @@ if __name__=='__main__':
     # os.environ['mq_host'] = '192.168.99.100'
     # os.environ['tracer_ip'] = '127.0.0.1'
     # os.environ['sleep_time']='60'
+    time.sleep(20)
     p1= mp.Process(target=upstream_listner)
     p2= mp.Process(target=downstream_listner)
     p3= mp.Process(target=gcd_listner)
