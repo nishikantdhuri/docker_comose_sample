@@ -100,8 +100,8 @@ services:
        - "15672:15672"
        - "5672:5672"
      volumes:
-       - /etc/so/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
-       - /etc/so/definitions.json:/etc/rabbitmq/definitions.json:ro
+       - /etc/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
+       - /etc/definitions.json:/etc/rabbitmq/definitions.json:ro
        
 volumes:
   logs:
