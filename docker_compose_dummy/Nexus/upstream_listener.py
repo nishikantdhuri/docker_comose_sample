@@ -12,7 +12,7 @@ folder = folder + '/logs'
 
 def connect_mq(mq):
     credentials = pika.PlainCredentials('testuser', 'pass')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=600,blocked_connection_timeout=300))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=120))
     channel = connection.channel()
     channel.queue_declare(queue=mq, durable=True)
     return channel
@@ -22,7 +22,7 @@ def upstream_listner():
     logging.basicConfig(filename=os.path.join(folder, 'up.log'), filemode='w', format='%(asctime)s - %(message)s', level=logging.INFO)
     logging.info('connecting to mq ' + str(os.environ.get('receiver_queue')))
     credentials = pika.PlainCredentials('testuser', 'pass')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=600,blocked_connection_timeout=300))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=120))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('receiver_queue'), durable=True)
 
@@ -48,7 +48,7 @@ def downstream_listner():
     logging.basicConfig(filename=os.path.join(folder, 'down.log'), filemode='w', format='%(asctime)s - %(message)s', level=logging.INFO)
     logging.info('connecting to mq ' + str(os.environ.get('downstream_listener')))
     credentials = pika.PlainCredentials('testuser', 'pass')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=600,blocked_connection_timeout=300))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=120))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('downstream_listener'), durable=True)
 
@@ -74,7 +74,7 @@ def gcd_listner():
     logging.basicConfig(filename=os.path.join(folder, 'gcd.log'), filemode='w', format='%(asctime)s - %(message)s', level=logging.INFO)
     logging.info('connecting to mq ' + str(os.environ.get('gcd_listener')))
     credentials = pika.PlainCredentials('testuser', 'pass')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=600,blocked_connection_timeout=300))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get('mq_host'),credentials=credentials,heartbeat=120))
     channel = connection.channel()
     channel.queue_declare(queue=os.environ.get('gcd_listener'), durable=True)
 
