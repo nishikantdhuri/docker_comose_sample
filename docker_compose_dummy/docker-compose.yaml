@@ -52,8 +52,8 @@ services:
      volumes:
         - "logs:/GCD/logs"
      environment:
-       receiver_queue: gcd_sender
-       sender_queue: gcd_listener
+       receiver_queue: gcd1
+       sender_queue: gcd2
        src_system: GCD
        mq_host: mq
        tracer_ip: tracer
