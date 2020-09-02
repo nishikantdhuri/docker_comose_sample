@@ -29,7 +29,7 @@ def upstream_listner():
     def callback(ch, method, properties, body):
         logging.info('messag received')
         dictToSend = {'status': os.environ.get('src_system')}
-        requests.post('https://'+str(os.environ.get('tracer_ip'))+':'+str(5000)+'/soc', json=dictToSend)
+        requests.post('http://'+str(os.environ.get('tracer_ip'))+':'+str(5000)+'/soc', json=dictToSend)
         logging.info('Processing...')
         time.sleep(int(os.environ.get('sleep_time')))
         logging.info('Process completed')
