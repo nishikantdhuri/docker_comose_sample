@@ -68,7 +68,7 @@ services:
         - RabbitMQ
      command: python run.py
      volumes:
-       - "logs:/GCD/logs"
+       - "logs:/Tracer/logs"
      ports:
        - "5000:5000"
      expose:
@@ -88,7 +88,7 @@ services:
         - RabbitMQ
      command: python log_aggregator.py
      volumes:
-        - "logs:/LA/logs"
+        - "logs:/LogAggregator/logs"
      environment:
        mongo_addr: db
     
