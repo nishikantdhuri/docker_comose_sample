@@ -18,7 +18,7 @@ def log_down():
     data=[]
     my_file = os.path.join(folder, 'down.log')
     while True:
-        if os.path.isfile(my_file):
+        if os.path.isfile(my_file) and os.path.getsize(my_file) > 0:
             with open(my_file, 'rb') as f:
                 f.seek(-2, os.SEEK_END)
                 while f.read(1) != b'\n':
@@ -57,7 +57,7 @@ def log_up():
     data=[]
     my_file = os.path.join(folder, 'up.log')
     while True:
-        if os.path.isfile(my_file):
+        if os.path.isfile(my_file) and os.path.getsize(my_file) > 0:
             with open(my_file, 'rb') as f:
                 f.seek(-2, os.SEEK_END)
                 while f.read(1) != b'\n':
@@ -97,7 +97,7 @@ def log_gdc():
     data=[]
     my_file = os.path.join(folder, 'gcd.log')
     while True:
-        if os.path.isfile(my_file):
+        if os.path.isfile(my_file) and os.path.getsize(my_file) > 0:
             with open(my_file, 'rb') as f:
                 f.seek(-2, os.SEEK_END)
                 while f.read(1) != b'\n':
