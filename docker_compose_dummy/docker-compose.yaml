@@ -1,20 +1,9 @@
 ﻿version: '2.2'
 
 services:
-  jenkins:
-     image: jenkins/jenkins:lts
-     privileged: true
-     user: root
-     ports:
-       - "8081:8080"
-       - "50000:50000"
-     container_name: jenkins
-     volumes:
-       - /var/run/docker.sock:/var/run/docker.sock
-       - /usr/bin/docker:/usr/bin/docker
-       - /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
-       
+
   Nexus:
+     container_name: nexus
      image: nexus
      build: ./Nexus
      depends_on:
@@ -35,6 +24,7 @@ services:
        sleep_time: 60
 
   External:
+     container_name: external
      image: external
      build: ./External
      depends_on:
@@ -52,6 +42,7 @@ services:
        sleep_time: 60
 
   GCD:
+     container_name: gcd
      image: gcd
      build: ./GCD
      depends_on:
@@ -89,6 +80,7 @@ services:
 
 
   LA:
+     container_name: la
      image: la
      build: ./LogAggregator
      depends_on:
